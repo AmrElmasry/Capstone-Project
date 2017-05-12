@@ -1,7 +1,9 @@
-package app.amrelmasry.capstone_project;
+package app.amrelmasry.capstone_project.features.notes;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import app.amrelmasry.capstone_project.R;
 
 public class NotesActivity extends AppCompatActivity {
 
