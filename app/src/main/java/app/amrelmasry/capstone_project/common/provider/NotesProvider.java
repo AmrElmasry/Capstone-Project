@@ -101,7 +101,22 @@ public class NotesProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int match = mUriMatcher.match(uri);
+        int countDeleted;
+        switch (match) {
+            case SINGLE_NOTE_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                countDeleted = mDpOpenHelper.getWritableDatabase().delete(NotesContract.Notes.TABLE_NAME,
+                        NotesContract.Notes._ID + "=" + id, null);
+                break;
+            default:
+                throw new UnsupportedOperationException();
+        }
+
+        if (countDeleted > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return countDeleted;
     }
 
     @Override

@@ -43,4 +43,10 @@ public class NotesDbUtils {
         Uri uri = NotesContract.Notes.CONTET_URI.buildUpon().appendPath(String.valueOf(updatedNoteId)).build();
         contentResolver.update(uri, values, null, null);
     }
+
+    public static void deleteNote(Context context, long noteId) {
+        final ContentResolver contentResolver = context.getContentResolver();
+        Uri uri = NotesContract.Notes.CONTET_URI.buildUpon().appendPath(String.valueOf(noteId)).build();
+        contentResolver.delete(uri, null, null);
+    }
 }

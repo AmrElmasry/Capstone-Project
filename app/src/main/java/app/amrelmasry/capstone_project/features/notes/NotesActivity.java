@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.View;
 
 import app.amrelmasry.capstone_project.R;
 import app.amrelmasry.capstone_project.common.Navigator;
@@ -26,6 +26,8 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int NOTES_LOADER_ID = 100;
     @BindView(R.id.note_recycler_view)
     RecyclerView mNotesRecyclerView;
+    @BindView(R.id.empty_view)
+    View mEmptyView;
     private NotesAdapter mNotesAdapter;
 
     @Override
@@ -49,7 +51,6 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
         if (requestCode == CREATE_NEW_NOTE_REQUEST_CODE || requestCode == SHOW_NOTE_DETAILS_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // reload data
-                Toast.makeText(this, R.string.saved_successfully_msg, Toast.LENGTH_SHORT).show();
                 getLoaderManager().restartLoader(NOTES_LOADER_ID, null, this);
             }
         }
@@ -64,7 +65,17 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor.getCount() == 0) {
+            showEmptyView(true);
+        } else {
+            showEmptyView(false);
+        }
         mNotesAdapter.swapCursor(cursor);
+    }
+
+    private void showEmptyView(boolean show) {
+        mEmptyView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mNotesRecyclerView.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override

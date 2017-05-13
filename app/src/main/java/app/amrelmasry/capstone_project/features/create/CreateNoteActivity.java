@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import app.amrelmasry.capstone_project.R;
@@ -24,6 +26,9 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @BindView(R.id.note_title)
     EditText mNoteTitle;
+
+    @BindView(R.id.delete_note)
+    ImageView mDeleteNote;
 
     @BindView(R.id.note_body)
     EditText mNoteBody;
@@ -48,6 +53,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private void populateNoteData() {
         mNoteTitle.setText(mNote.getTitle());
         mNoteBody.setText(mNote.getBody());
+        mDeleteNote.setVisibility(View.VISIBLE);
     }
 
     private void initToolbar() {
@@ -87,5 +93,12 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private boolean isEmpty(EditText editText) {
         return TextUtils.isEmpty(editText.getText().toString().trim());
+    }
+
+    @OnClick(R.id.delete_note)
+    void onDeleteClicked() {
+        NotesDbUtils.deleteNote(this, mNote.getId());
+        setResult(RESULT_OK);
+        finish();
     }
 }
