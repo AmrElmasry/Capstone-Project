@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Capstone-Project</string>
+    <string name="new_note_screen_title">New Note</string>
+    <string name="note_title">Note Title</string>
+    <string name="note_body">Note Body</string>
+    <string name="save">Save</string>
+    <string name="saved_successfully_msg">Saved Successfully</string>
+    <string name="notes_screen_title">Simple Notes App</string>
 </resources>

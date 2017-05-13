@@ -16,8 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.create.CreateNoteActivity" />
-        <activity android:name=".features.details.NoteDetailsActivity"></activity>
+        <activity
+            android:name=".features.create.CreateNoteActivity"
+            android:parentActivityName=".features.notes.NotesActivity" />
+
+        <provider
+            android:name=".common.provider.NotesProvider"
+            android:authorities="com.amrelmasry.notes"
+            android:exported="false" />
     </application>
 
 </manifest>
