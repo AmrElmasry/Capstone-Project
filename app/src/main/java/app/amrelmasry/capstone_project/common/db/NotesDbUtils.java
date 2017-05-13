@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 
 import app.amrelmasry.capstone_project.common.model.Note;
 
@@ -13,11 +14,11 @@ import app.amrelmasry.capstone_project.common.model.Note;
 
 public class NotesDbUtils {
 
-    public static void saveNote(Context context, Note note) {
+    public static void saveNote(Context context, String title, String body) {
         final ContentResolver contentResolver = context.getContentResolver();
         ContentValues values = new ContentValues();
-        values.put(NotesContract.Notes.COLUMN_TITLE, note.getTitle());
-        values.put(NotesContract.Notes.COLUMN_BODY, note.getBody());
+        values.put(NotesContract.Notes.COLUMN_TITLE, title);
+        values.put(NotesContract.Notes.COLUMN_BODY, body);
         contentResolver.insert(NotesContract.Notes.CONTET_URI, values);
     }
 
@@ -25,10 +26,21 @@ public class NotesDbUtils {
         if (!cursor.moveToPosition(position)) {
             throw new IllegalStateException("Item Can't be found in Cursor");
         }
+        int idIndex = cursor.getColumnIndex(NotesContract.Notes._ID);
         int titleIndex = cursor.getColumnIndex(NotesContract.Notes.COLUMN_TITLE);
         int bodyIndex = cursor.getColumnIndex(NotesContract.Notes.COLUMN_BODY);
         String title = cursor.getString(titleIndex);
         String body = cursor.getString(bodyIndex);
-        return new Note(title, body);
+        long id = cursor.getLong(idIndex);
+        return new Note(id, title, body);
+    }
+
+    public static void updateNote(Context context, long updatedNoteId, String newTitle, String newBody) {
+        final ContentResolver contentResolver = context.getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(NotesContract.Notes.COLUMN_TITLE, newTitle);
+        values.put(NotesContract.Notes.COLUMN_BODY, newBody);
+        Uri uri = NotesContract.Notes.CONTET_URI.buildUpon().appendPath(String.valueOf(updatedNoteId)).build();
+        contentResolver.update(uri, values, null, null);
     }
 }

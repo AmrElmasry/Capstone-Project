@@ -18,15 +18,17 @@ class NotesAdapter extends RecyclerView.Adapter<NotesViewHolder> {
 
 
     private Cursor mCursor;
+    private OnNoteClickListener mListener;
 
-    NotesAdapter(Cursor mCursor) {
+    NotesAdapter(Cursor mCursor, OnNoteClickListener mListener) {
         this.mCursor = mCursor;
+        this.mListener = mListener;
     }
 
     @Override
     public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_note, parent, false);
-        return new NotesViewHolder(itemView);
+        return new NotesViewHolder(itemView, mListener);
     }
 
     @Override
@@ -45,5 +47,9 @@ class NotesAdapter extends RecyclerView.Adapter<NotesViewHolder> {
     @Override
     public int getItemCount() {
         return mCursor != null ? mCursor.getCount() : 0;
+    }
+
+    public interface OnNoteClickListener {
+        void onNoteClick(Note note);
     }
 }

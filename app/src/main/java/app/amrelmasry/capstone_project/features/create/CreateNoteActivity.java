@@ -17,6 +17,8 @@ import butterknife.OnClick;
 public class CreateNoteActivity extends AppCompatActivity {
 
 
+    public static final String EXTRA_NOTE = "app.amrelmasry.capstone_project.extra_note";
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -26,12 +28,26 @@ public class CreateNoteActivity extends AppCompatActivity {
     @BindView(R.id.note_body)
     EditText mNoteBody;
 
+    private boolean mEditNoteMode = false;
+
+    private Note mNote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
         ButterKnife.bind(this);
         initToolbar();
+        if (getIntent().hasExtra(EXTRA_NOTE)) {
+            mEditNoteMode = true;
+            mNote = getIntent().getParcelableExtra(EXTRA_NOTE);
+            populateNoteData();
+        }
+    }
+
+    private void populateNoteData() {
+        mNoteTitle.setText(mNote.getTitle());
+        mNoteBody.setText(mNote.getBody());
     }
 
     private void initToolbar() {
@@ -46,9 +62,23 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
         String title = mNoteTitle.getText().toString().trim();
         String body = mNoteBody.getText().toString().trim();
-        NotesDbUtils.saveNote(this, new Note(title, body));
-        setResult(RESULT_OK);
+        if (mEditNoteMode) {
+            if (noteHasBeenUpdated()) {
+                // update note
+                NotesDbUtils.updateNote(this, mNote.getId(), title, body);
+                setResult(RESULT_OK);
+            }
+        } else {
+            // create new note
+            NotesDbUtils.saveNote(this, title, body);
+            setResult(RESULT_OK);
+        }
         finish();
+    }
+
+    private boolean noteHasBeenUpdated() {
+        return !mNote.getBody().equals(mNoteBody.getText().toString().trim()) ||
+                !mNote.getTitle().equals(mNoteTitle.getText().toString().trim());
     }
 
     private boolean requireFieldAreEmpty() {
@@ -56,6 +86,6 @@ public class CreateNoteActivity extends AppCompatActivity {
     }
 
     private boolean isEmpty(EditText editText) {
-        return TextUtils.isEmpty(editText.getText());
+        return TextUtils.isEmpty(editText.getText().toString().trim());
     }
 }

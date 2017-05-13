@@ -14,13 +14,15 @@ import android.widget.Toast;
 import app.amrelmasry.capstone_project.R;
 import app.amrelmasry.capstone_project.common.Navigator;
 import app.amrelmasry.capstone_project.common.db.NotesContract;
+import app.amrelmasry.capstone_project.common.model.Note;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NotesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class NotesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, NotesAdapter.OnNoteClickListener {
 
     private static final int CREATE_NEW_NOTE_REQUEST_CODE = 1;
+    private static final int SHOW_NOTE_DETAILS_REQUEST_CODE = 2;
     private static final int NOTES_LOADER_ID = 100;
     @BindView(R.id.note_recycler_view)
     RecyclerView mNotesRecyclerView;
@@ -31,7 +33,7 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         ButterKnife.bind(this);
-        mNotesAdapter = new NotesAdapter(null);
+        mNotesAdapter = new NotesAdapter(null, this);
         mNotesRecyclerView.setAdapter(mNotesAdapter);
         mNotesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         getLoaderManager().initLoader(NOTES_LOADER_ID, null, this);
@@ -44,7 +46,7 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CREATE_NEW_NOTE_REQUEST_CODE) {
+        if (requestCode == CREATE_NEW_NOTE_REQUEST_CODE || requestCode == SHOW_NOTE_DETAILS_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // reload data
                 Toast.makeText(this, R.string.saved_successfully_msg, Toast.LENGTH_SHORT).show();
@@ -68,5 +70,10 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mNotesAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onNoteClick(Note note) {
+        Navigator.openNoteDetailsForResult(this, note, SHOW_NOTE_DETAILS_REQUEST_CODE);
     }
 }

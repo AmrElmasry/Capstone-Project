@@ -106,7 +106,24 @@ public class NotesProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int match = mUriMatcher.match(uri);
+        int countUpdated;
+        switch (match) {
+            case SINGLE_NOTE_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                countUpdated = mDpOpenHelper.getWritableDatabase().update(NotesContract.Notes.TABLE_NAME,
+                        values,
+                        NotesContract.Notes._ID + "=" + id, null);
+                break;
+            default:
+                throw new UnsupportedOperationException();
+        }
+
+        if (countUpdated > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return countUpdated;
+
     }
 
 
