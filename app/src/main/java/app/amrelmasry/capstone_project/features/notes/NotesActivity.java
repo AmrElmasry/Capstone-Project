@@ -15,6 +15,7 @@ import app.amrelmasry.capstone_project.R;
 import app.amrelmasry.capstone_project.common.Navigator;
 import app.amrelmasry.capstone_project.common.db.NotesContract;
 import app.amrelmasry.capstone_project.common.model.Note;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +29,8 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
     RecyclerView mNotesRecyclerView;
     @BindView(R.id.empty_view)
     View mEmptyView;
+    @BindInt(R.integer.span_count)
+    int mSpanCount;
     private NotesAdapter mNotesAdapter;
 
     @Override
@@ -37,7 +40,7 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
         ButterKnife.bind(this);
         mNotesAdapter = new NotesAdapter(null, this);
         mNotesRecyclerView.setAdapter(mNotesAdapter);
-        mNotesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        mNotesRecyclerView.setLayoutManager(new GridLayoutManager(this, mSpanCount));
         getLoaderManager().initLoader(NOTES_LOADER_ID, null, this);
     }
 
