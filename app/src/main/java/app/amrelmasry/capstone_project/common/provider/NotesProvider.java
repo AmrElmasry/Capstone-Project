@@ -42,7 +42,18 @@ public class NotesProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        int match = mUriMatcher.match(uri);
+
+        switch (match) {
+            case MULTI_NOTES_MODE:
+                // directory
+                return "vnd.android.cursor.dir" + "/" + NotesContract.AUTHORITY + "/" + NotesContract.PATH_NOTES;
+            case SINGLE_NOTE_WITH_ID:
+                // single item type
+                return "vnd.android.cursor.item" + "/" + NotesContract.AUTHORITY + "/" + NotesContract.PATH_NOTES;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
     }
 
     @Nullable
