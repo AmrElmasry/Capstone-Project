@@ -1,68 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="app.amrelmasry.capstone_project.features.create.CreateNoteActivity">
+    android:fillViewport="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-        app:title="@string/new_note_screen_title"
-        app:titleTextColor="@android:color/white">
+        android:orientation="vertical"
+        tools:context="app.amrelmasry.capstone_project.features.create.CreateNoteActivity">
 
-        <ImageView
-            android:id="@+id/delete_note"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="8dp"
-            android:contentDescription="@string/delete_note"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_delete_black_24dp"
-            tools:visibility="visible" />
-    </android.support.v7.widget.Toolbar>
+            android:background="@color/colorPrimary"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            app:title="@string/new_note_screen_title"
+            app:titleTextColor="@android:color/white">
 
-    <EditText
-        android:id="@+id/note_title"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/note_title"
-        android:inputType="textAutoComplete"
-        android:maxLines="1" />
+            <ImageView
+                android:id="@+id/delete_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:contentDescription="@string/delete_note"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_delete_black_24dp"
+                tools:visibility="visible" />
+        </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/note_body"
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:layout_weight="1"
-        android:gravity="start"
-        android:hint="@string/note_body"
-        android:inputType="textAutoComplete|textMultiLine" />
+        <EditText
+            android:id="@+id/note_title"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/note_title"
+            android:inputType="textAutoComplete"
+            android:maxLines="1" />
 
-    <TextView
-        android:id="@+id/save_note"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_margin="32dp"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:text="@string/save"
-        android:textColor="@android:color/white" />
+        <EditText
+            android:id="@+id/note_body"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:hint="@string/note_body"
+            android:inputType="textAutoComplete|textMultiLine" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:adSize="BANNER"
-        app:adUnitId="@string/admob_test_unit_id" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/save_note"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_margin="32dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="@android:color/white" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adSize="BANNER"
+            app:adUnitId="@string/admob_test_unit_id" />
+    </LinearLayout>
+
+</ScrollView>

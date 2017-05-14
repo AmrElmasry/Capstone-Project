@@ -12,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import app.amrelmasry.capstone_project.R;
+import app.amrelmasry.capstone_project.common.FirbaseAnalyticsProvider;
 import app.amrelmasry.capstone_project.common.Navigator;
+import app.amrelmasry.capstone_project.common.UserEvents;
 import app.amrelmasry.capstone_project.common.db.NotesContract;
 import app.amrelmasry.capstone_project.common.model.Note;
 import butterknife.BindInt;
@@ -46,6 +48,7 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @OnClick(R.id.add_note_fab)
     void onAddNoteClicked() {
+        FirbaseAnalyticsProvider.getInstance(this).logEvent(UserEvents.CREATE_NOTE, null);
         Navigator.openCreateNoteForResult(this, CREATE_NEW_NOTE_REQUEST_CODE);
     }
 

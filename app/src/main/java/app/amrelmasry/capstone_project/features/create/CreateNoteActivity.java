@@ -14,6 +14,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import app.amrelmasry.capstone_project.R;
+import app.amrelmasry.capstone_project.common.FirbaseAnalyticsProvider;
+import app.amrelmasry.capstone_project.common.UserEvents;
 import app.amrelmasry.capstone_project.common.db.NotesDbUtils;
 import app.amrelmasry.capstone_project.common.model.Note;
 import butterknife.BindView;
@@ -85,11 +87,13 @@ public class CreateNoteActivity extends AppCompatActivity {
         if (mEditNoteMode) {
             if (noteHasBeenUpdated()) {
                 // update note
+                FirbaseAnalyticsProvider.getInstance(this).logEvent(UserEvents.UPDATE_NOTE, null);
                 NotesDbUtils.updateNote(this, mNote.getId(), title, body);
                 setResult(RESULT_OK);
             }
         } else {
             // create new note
+            FirbaseAnalyticsProvider.getInstance(this).logEvent(UserEvents.SAVE_NOTE, null);
             NotesDbUtils.saveNote(this, title, body);
             setResult(RESULT_OK);
         }
@@ -111,6 +115,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @OnClick(R.id.delete_note)
     void onDeleteClicked() {
+        FirbaseAnalyticsProvider.getInstance(this).logEvent(UserEvents.DELETE_NOTE, null);
         NotesDbUtils.deleteNote(this, mNote.getId());
         setResult(RESULT_OK);
         finish();
