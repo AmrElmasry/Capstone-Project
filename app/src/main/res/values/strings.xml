@@ -10,4 +10,6 @@
     <string name="add_note">Add Note</string>
     <string name="add_new_note">add new note</string>
     <string name="admob_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="fields_empty_error">You have to enter both the note title and body first</string>
+    <string name="add_new_note_content_description">Add new note</string>
 </resources>

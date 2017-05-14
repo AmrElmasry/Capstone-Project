@@ -79,7 +79,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     @OnClick(R.id.save_note)
     void onSaveNoteClicked() {
         if (requireFieldAreEmpty()) {
-            Toast.makeText(this, "You have to enter both the note title and body first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.fields_empty_error, Toast.LENGTH_SHORT).show();
             return;
         }
         String title = mNoteTitle.getText().toString().trim();
