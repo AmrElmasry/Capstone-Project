@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "12990473880",
+    "firebase_url": "https://capstone-project-2df63.firebaseio.com",
+    "project_id": "capstone-project-2df63",
+    "storage_bucket": "capstone-project-2df63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12990473880:android:e0c7b0e270b41079",
+        "android_client_info": {
+          "package_name": "app.amrelmasry.capstone_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12990473880-606nluni9k2a5uqjq95l3uqe8pmd7mub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT3aEcLxaC40dTCudu34LC4Ifm33def-s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

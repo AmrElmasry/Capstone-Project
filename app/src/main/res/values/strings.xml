@@ -9,4 +9,5 @@
     <string name="empty_view_text">No Notes Found, Add them by clicking on the + icon</string>
     <string name="add_note">Add Note</string>
     <string name="add_new_note">add new note</string>
+    <string name="admob_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

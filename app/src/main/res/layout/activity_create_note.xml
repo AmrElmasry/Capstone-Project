@@ -58,4 +58,11 @@
         android:gravity="center"
         android:text="@string/save"
         android:textColor="@android:color/white" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="@string/admob_test_unit_id" />
 </LinearLayout>
