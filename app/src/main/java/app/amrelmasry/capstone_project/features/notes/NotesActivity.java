@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import app.amrelmasry.capstone_project.R;
 import app.amrelmasry.capstone_project.common.FirbaseAnalyticsProvider;
@@ -29,6 +30,8 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int NOTES_LOADER_ID = 100;
     @BindView(R.id.note_recycler_view)
     RecyclerView mNotesRecyclerView;
+    @BindView(R.id.toolbar_image)
+    ImageView mToolbarImageView;
     @BindView(R.id.empty_view)
     View mEmptyView;
     @BindInt(R.integer.span_count)
@@ -44,6 +47,12 @@ public class NotesActivity extends AppCompatActivity implements LoaderManager.Lo
         mNotesRecyclerView.setAdapter(mNotesAdapter);
         mNotesRecyclerView.setLayoutManager(new GridLayoutManager(this, mSpanCount));
         getLoaderManager().initLoader(NOTES_LOADER_ID, null, this);
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        ToolbarPhotoAsyncTask asyncTask = new ToolbarPhotoAsyncTask(mToolbarImageView);
+        asyncTask.execute();
     }
 
     @OnClick(R.id.add_note_fab)
